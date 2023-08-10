@@ -24,7 +24,18 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+app.get("/api/", function (req, res) {
+  let currentDate = new Date()
+  res.json({"unix": currentDate.getTime(), "utc": `${currentDate}`});
+});
 
+app.get("/api/:date?", function (req, res) {
+  let calcDate = isNaN(req.params.date) ? req.params.date : parseInt(req.params.date);
+  let currentDate = new Date(calcDate);
+  let errorResponse = {"error": `${currentDate}`}; 
+  let validResponse = {"unix": currentDate.getTime(), "utc": `${currentDate.toUTCString()}`};
+  currentDate == "Invalid Date" ? res.json(errorResponse) : res.json(validResponse); 
+});
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
