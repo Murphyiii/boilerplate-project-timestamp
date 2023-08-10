@@ -24,6 +24,7 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+// An empty date parameter should return the current time in a JSON object with a unix and utc key
 app.get("/api/", function (req, res) {
   let currentDate = new Date()
   res.json({"unix": currentDate.getTime(), "utc": `${currentDate}`});
